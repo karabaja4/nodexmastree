@@ -2,7 +2,7 @@ const pigpio = require('pigpio');
 const timers = require('node:timers/promises');
 const settings = require('./settings.json');
 
-if (!settings.brightness || !settings.colors || settings.colors.length === 0) {
+if (!settings.brightness || !settings.colors || (settings.colors.length === 0)) {
   console.log('Invalid settings.json');
   process.exit(1);
 }
@@ -73,6 +73,7 @@ const update = async () => {
 
 let currentColorIndex = 0;
 let currentPixelIndex = 0;
+const colors = settings.colors;
 
 const step = () => {
   if (currentPixelIndex >= pixelCount) {

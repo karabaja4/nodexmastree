@@ -2,7 +2,8 @@ const pigpio = require('pigpio');
 const timers = require('node:timers/promises');
 const settings = require('./settings.json');
 
-if (!settings.brightness || !settings.colors || (settings.colors.length === 0)) {
+if (!settings.brightness || !settings.speed ||
+    !settings.colors || (settings.colors.length === 0)) {
   console.log('Invalid settings.json');
   process.exit(1);
 }
@@ -90,7 +91,7 @@ const main = async () => {
   while (true) {
     update();
     step();
-    await timers.setTimeout(100);
+    await timers.setTimeout(settings.speed);
   }
 };
 

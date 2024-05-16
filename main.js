@@ -26,6 +26,7 @@ const step = () => {
 };
 
 const main = async () => {
+  tree.setBrightness(1);
   while (true) {
     tree.update(pixels);
     step();

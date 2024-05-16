@@ -1,5 +1,4 @@
 const pigpio = require('pigpio');
-const settings = require('./settings.js').get();
 
 pigpio.configureInterfaces(pigpio.DISABLE_FIFO_IF);
 pigpio.initialize();
@@ -16,10 +15,14 @@ process.on('SIGHUP', shutdown);
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
+let brightness = 0.5;
+const setBrightness = (value) => {
+  brightness = Math.max(0, Math.min(1, value));
+};
+
 const getBrightnessByte = () => {
-  const desiredBrightness = Math.max(0, Math.min(1, settings.brightness));
   const maxBrightness = 31;
-  const brightnessBits = Math.round(desiredBrightness * maxBrightness);
+  const brightnessBits = Math.round(brightness * maxBrightness);
   return (0b11100000 | (brightnessBits & 0b00011111));
 };
 
@@ -65,5 +68,6 @@ const update = async (pixels) => {
 };
 
 module.exports = {
-  update
+  update,
+  setBrightness
 };

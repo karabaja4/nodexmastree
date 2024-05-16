@@ -18,7 +18,7 @@ process.on('SIGTERM', shutdown);
 let brightness = 0.5;
 const setBrightness = (value) => {
   brightness = Math.max(0, Math.min(1, value));
-  console.log(`Set brightness to ${brightness}`);
+  console.log(`Set brightness to ${brightness}.`);
 };
 
 const getBrightnessByte = () => {

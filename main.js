@@ -1,6 +1,8 @@
 const tree = require('./tree.js');
 const timers = require('node:timers/promises');
 
+const pixelCount = 25;
+
 const pixels = [];
 for (let i = 0; i < pixelCount; i++) {
   pixels.push({ r: 0, g: 0, b: 0 });

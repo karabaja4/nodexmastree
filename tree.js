@@ -52,8 +52,7 @@ const sendLed = (r, g, b) => {
 
 const update = async (pixels) => {
   if (!pixels || pixels.length !== pixelCount) {
-    console.log('Invalid pixel count.');
-    process.exit(1);
+    shutdown();
   }
   for (let i = 0; i < 4; i++) {
     sendByte(0);

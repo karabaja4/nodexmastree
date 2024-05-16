@@ -1,5 +1,6 @@
 const tree = require('./tree.js');
 const timers = require('node:timers/promises');
+const settings = require('./settings.js').get();
 
 const pixelCount = 25;
 

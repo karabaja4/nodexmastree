@@ -2,6 +2,6 @@
 
 name="nodexmastree"
 command="/usr/bin/node"
-command_args="/home/igor/nodexmastree/main.js"
+command_args="/home/igor/nodexmastree/src/onebyone.js"
 command_background="yes"
 pidfile="/run/${RC_SVCNAME}.pid"

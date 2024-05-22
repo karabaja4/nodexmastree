@@ -8,8 +8,8 @@ console.log('Hi.');
 const pixelCount = 25;
 
 const shutdown = async () => {
-  pigpio.terminate();
   await setOff();
+  pigpio.terminate();
   console.log('Goodbye.');
   process.exit(0);
 };

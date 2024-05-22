@@ -3,13 +3,8 @@ const timers = require('node:timers/promises');
 const settings = require('./settings.js').get();
 
 const pixelCount = 25;
+const pixels = Array(pixelCount).fill({ r: 0, g: 0, b: 0 });
 
-const pixels = [];
-for (let i = 0; i < pixelCount; i++) {
-  pixels.push({ r: 0, g: 0, b: 0 });
-};
-
-// onebyone
 let currentColorIndex = 0;
 let currentPixelIndex = 0;
 const colors = settings.colors;

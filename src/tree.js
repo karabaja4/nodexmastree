@@ -5,8 +5,11 @@ pigpio.initialize();
 
 console.log('Hi.');
 
-const shutdown = () => {
+const pixelCount = 25;
+
+const shutdown = async () => {
   pigpio.terminate();
+  await setOff();
   console.log('Goodbye.');
   process.exit(0);
 };
@@ -14,6 +17,11 @@ const shutdown = () => {
 process.on('SIGHUP', shutdown);
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
+
+const setOff = async () => {
+  const pixels = Array(pixelCount).fill({ r: 0, g: 0, b: 0 });
+  await update(pixels);
+};
 
 let brightness = 0.5;
 const setBrightness = (value) => {
@@ -27,7 +35,6 @@ const getBrightnessByte = () => {
   return (0b11100000 | (brightnessBits & 0b00011111));
 };
 
-const pixelCount = 25;
 const clock = new pigpio.Gpio(pixelCount, { mode: pigpio.Gpio.OUTPUT });
 const mosi = new pigpio.Gpio(12, { mode: pigpio.Gpio.OUTPUT });
 
@@ -69,5 +76,6 @@ const update = async (pixels) => {
 
 module.exports = {
   update,
-  setBrightness
+  setBrightness,
+  setOff
 };

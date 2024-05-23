@@ -7,11 +7,15 @@ console.log('Hi.');
 
 const pixelCount = 25;
 
-const shutdown = async () => {
-  await setOff();
-  pigpio.terminate();
-  console.log('Goodbye.');
-  process.exit(0);
+const shutdown = () => {
+  setOff().then(() => {
+    pigpio.terminate();
+    console.log('Goodbye.');
+    process.exit(0);
+  }).catch(error => {
+    console.error('Shutdown error:', error);
+    process.exit(1);
+  });
 };
 
 process.on('SIGHUP', shutdown);

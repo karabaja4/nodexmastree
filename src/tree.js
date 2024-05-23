@@ -8,23 +8,19 @@ console.log('Hi.');
 const pixelCount = 25;
 
 const shutdown = () => {
-  setOff().then(() => {
-    pigpio.terminate();
-    console.log('Goodbye.');
-    process.exit(0);
-  }).catch(error => {
-    console.error('Shutdown error:', error);
-    process.exit(1);
-  });
+  setOff();
+  pigpio.terminate();
+  console.log('Goodbye.');
+  process.exit(0);
 };
 
 process.on('SIGHUP', shutdown);
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
-const setOff = async () => {
+const setOff = () => {
   const pixels = Array(pixelCount).fill({ r: 0, g: 0, b: 0 });
-  await update(pixels);
+  update(pixels);
 };
 
 let brightness = 0.5;
@@ -61,7 +57,7 @@ const sendLed = (r, g, b) => {
   sendByte(r);
 };
 
-const update = async (pixels) => {
+const update = (pixels) => {
   if (!pixels || pixels.length !== pixelCount) {
     console.log('Invalid pixel count.');
     shutdown();
